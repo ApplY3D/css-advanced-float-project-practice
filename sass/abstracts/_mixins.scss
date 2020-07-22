@@ -1,0 +1,61 @@
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absoluteCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* media query manager
+0 - 600px:      Phone
+600 - 900px:    Tablet portrat
+900 - 1200px:   Tablet landscape
+[1200 - 1800: Default styles]
+1800px + :      Big desktop
+*/
+
+/* $breakpont argument choices:
+- phone
+- tab-port
+- tab-land
+- big-dektop
+
+order to mix: Base + typography > general layout + grid > page layout > components
+
+1em = 16px
+!! no rem
+px / 16 =>
+*/
+@mixin respond($breakpont) {
+  @if $breakpont == phone {
+    //600px / 16px
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+  @if $breakpont == tab-port {
+    //900px / 16px
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    }
+  }
+  @if $breakpont == tab-land {
+    //1200px / 16px
+    @media only screen and (max-width: 75em) {
+      @content;
+    }
+  }
+  @if $breakpont == big-dektop {
+    //1800px / 16px
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    }
+  }
+}
